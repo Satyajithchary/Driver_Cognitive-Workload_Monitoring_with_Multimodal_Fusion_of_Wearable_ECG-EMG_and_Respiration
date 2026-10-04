@@ -37,7 +37,7 @@ The code uses the ADABase cognitive-drive public release 0.1.0 (Oppelt et al., *
 The 5-min rest baseline of each study serves only as the calibration reference and is never scored. One subject per study was excluded by quality rules fixed before modelling, which leaves 29 subjects per task.
 
 <p align="center">
-  <img src="figures/eda/manipulation_check.png" width="900" alt="NASA-TLX and task performance per level">
+  <img src="figures (Copy)/eda/manipulation_check.png" width="900" alt="NASA-TLX and task performance per level">
 </p>
 <p align="center"><em>Manipulation check. NASA-TLX and task performance per level (Friedman test, n = 30).</em></p>
 
@@ -52,7 +52,7 @@ The 5-min rest baseline of each study serves only as the calibration reference a
 All streams are cut into 20-s windows.
 
 <p align="center">
-  <img src="figures/eda/stream_examples.png" width="900" alt="Pre-processed streams">
+  <img src="figures (Copy)/eda/stream_examples.png" width="900" alt="Pre-processed streams">
 </p>
 <p align="center"><em>Pre-processed ECG, EMG envelopes and respiration of one subject at rest, in 1-back and in 3-back.</em></p>
 
@@ -92,11 +92,11 @@ All streams are cut into 20-s windows.
 │   ├── a03_eda.py            cohort, manipulation check, physiology per level
 │   ├── a06_train.py          LOSO training (sharded, resumable)
 │   ├── run_training.sh       launches all main runs in parallel shards
-│   ├── a07_analyze.py        per task / protocol tables, statistics, figures
+│   ├── a07_analyze.py        per task / protocol tables, statistics, figures (Copy)
 │   ├── a08_ablations.py      stream pairs and window length
 │   ├── a09_summary.py        cross-task summary and protocol tests
 │   └── make_notebook.py      builds ADABase.ipynb
-├── figures/                  generated figures
+├── figures (Copy)/                  generated figures (Copy)
 └── results/                  generated tables and predictions
 ```
 
@@ -161,15 +161,15 @@ The table reports window-level macro-F1 and AUROC under LOSO evaluation. The n-b
 | Chance | .500 | .500 | .333 | .500 | .500 | .333 |
 
 <p align="center">
-  <img src="figures/summary/tasks_models_heatmap.png" width="800" alt="Macro-F1 per task and model">
+  <img src="figures (Copy)/summary/tasks_models_heatmap.png" width="800" alt="Macro-F1 per task and model">
 </p>
 <p align="center"><em>Enroll protocol. Window macro-F1 per task and model.</em></p>
 
 ### Statistical comparison
 
 <p align="center">
-  <img src="figures/kdrive_bin/enroll/cd_diagram.png" width="430" alt="CD diagram k-drive binary">
-  <img src="figures/nback_bin/enroll/cd_diagram.png" width="430" alt="CD diagram n-back binary">
+  <img src="figures (Copy)/kdrive_bin/enroll/cd_diagram.png" width="430" alt="CD diagram k-drive binary">
+  <img src="figures (Copy)/nback_bin/enroll/cd_diagram.png" width="430" alt="CD diagram n-back binary">
 </p>
 <p align="center"><em>Critical-difference diagrams of subject-level macro-F1 for k-drive binary (left) and n-back binary (right). Models joined by a bar do not differ significantly (Nemenyi, CD = 3.09 ranks, n = 29).</em></p>
 
@@ -190,8 +190,8 @@ The table reports the change in macro-F1 when one stream is set to zero at test 
 | Hierarchical | −.023 | **−.119** | +.024 | −.015 | +.006 | +.010 |
 
 <p align="center">
-  <img src="figures/kdrive_bin/enroll/missing_modality.png" width="430" alt="Missing stream k-drive">
-  <img src="figures/nback_bin/enroll/missing_modality.png" width="430" alt="Missing stream n-back">
+  <img src="figures (Copy)/kdrive_bin/enroll/missing_modality.png" width="430" alt="Missing stream k-drive">
+  <img src="figures (Copy)/nback_bin/enroll/missing_modality.png" width="430" alt="Missing stream n-back">
 </p>
 <p align="center"><em>Macro-F1 with all streams and with one stream removed, for k-drive binary (left) and n-back binary (right).</em></p>
 
@@ -215,14 +215,14 @@ The table reports subject-level macro-F1 for seed 0. The p-values come from the 
 | Hierarchical | .540 | .572 | .730 | 1.000 | **0.009** |
 
 <p align="center">
-  <img src="figures/summary/protocols_main_task.png" width="800" alt="Calibration protocols">
+  <img src="figures (Copy)/summary/protocols_main_task.png" width="800" alt="Calibration protocols">
 </p>
 <p align="center"><em>Window macro-F1 of all models under the strict, enroll and calib protocols.</em></p>
 
 ### Ablations (n-back binary, enroll, seed 0)
 
 <p align="center">
-  <img src="figures/ablations/ablations.png" width="800" alt="Ablations">
+  <img src="figures (Copy)/ablations/ablations.png" width="800" alt="Ablations">
 </p>
 <p align="center"><em>Stream pairs vs. all three streams (left) and window length of 10, 20 and 30 s (right).</em></p>
 
