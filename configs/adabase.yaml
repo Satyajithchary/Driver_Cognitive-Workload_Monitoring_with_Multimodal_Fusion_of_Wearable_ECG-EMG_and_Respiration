@@ -1,0 +1,75 @@
+paths:
+  raw: ../adabase_cognitive-drive-public-0.1.0/cognitive-drive-public-0.1.0
+  data: data
+  results: results
+  figures: figures
+
+# all SIGNALS columns are stored on a common 1000 Hz timeline in this release;
+# native bandwidths: ECG 500 Hz, RSP 250 Hz, EMG 1000 Hz
+fs_file: 1000
+
+# label tasks: name -> list of (study, phase, level) per class; reference = enrollment baseline
+tasks:
+  nback_bin:
+    classes: [low, high]
+    segments: [[[n-back, baseline, 2], [n-back, test, 1]], [[n-back, test, 2], [n-back, test, 3]]]
+    reference: [n-back, baseline, 1]
+  nback_3:
+    classes: [1-back, 2-back, 3-back]
+    segments: [[[n-back, test, 1]], [[n-back, test, 2]], [[n-back, test, 3]]]
+    reference: [n-back, baseline, 1]
+  kdrive_3:
+    classes: [level-1, level-2, level-3]
+    segments: [[[k-drive, test, 1]], [[k-drive, test, 2]], [[k-drive, test, 3]]]
+    reference: [k-drive, baseline, 1]
+  kdrive_bin:
+    classes: [level-1, level-3]
+    segments: [[[k-drive, test, 1]], [[k-drive, test, 3]]]
+    reference: [k-drive, baseline, 1]
+main_task: nback_bin
+
+streams:            # per 1D-transformer input: channels, sampling rate, patch (samples), stem kernel
+  ecg: {ch: 3, fs: 125, patch: 25, k: 7}     # lead I, lead II, instantaneous HR; 0.2-s patches
+  emg: {ch: 3, fs: 50, patch: 25, k: 5}      # log-RMS envelopes 20-60 / 60-150 / 150-450 Hz; 0.5-s patches
+  rsp: {ch: 2, fs: 25, patch: 25, k: 5}      # waveform, breathing rate; 1-s patches
+
+window:
+  length_s: 20
+  stride_train_s: 5
+  stride_eval_s: 10
+
+model:
+  d: 128
+  heads: 4
+  layers: 4
+  ff_mult: 2
+  dropout: 0.2
+  xattn_layers: 2
+  tensor_dim: 16
+  lmf_rank: 8
+  hot_order: 3
+  hot_rank: 8
+
+train:
+  epochs: 25
+  patience: 6
+  batch_size: 128
+  group_size: 16
+  lr: 3.0e-4
+  weight_decay: 0.05
+  label_smoothing: 0.1
+  warmup_epochs: 3
+  aux_weight: 0.5
+  modality_dropout: 0.1
+  n_val_subjects: 4
+  seeds: [0, 1, 2]
+  amp: true
+
+modalities: [ecg, emg, rsp]
+unimodal: [ecg_only, emg_only, rsp_only]
+fusions: [early, inter_concat, inter_attn, late, late_xattn, tfn, lmf, hot, hierarchical]
+protocols: [strict, enroll, calib]
+# enroll = baseline correction against the 5-min rest recording: subtract the rest mean, scale by the
+# training population (rest variance is far smaller than task variance, e.g. near-silent EMG at rest).
+# Fixed before the main runs.
+enroll_scale: false
